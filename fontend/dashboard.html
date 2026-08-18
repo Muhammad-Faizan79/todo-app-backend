@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Todo Dashboard</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Optional: Better icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+</head>
+
+<body onload="initializeDashboard()">
+
+    <!-- Modal / Form Container -->
+    <div class="showFomdiv"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">
+                <i class="fa-solid fa-check-double"></i>
+            </div>
+
+            <div>
+                <h2>TODO</h2>
+                <span>Task Manager</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <div class="nav-title">MENU</div>
+
+            <ul>
+
+                <li class="activeState" onclick="get_All()">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Dashboard</span>
+                </li>
+
+                <li class="mytask" onclick="task()">
+                    <i class="fa-solid fa-list-check"></i>
+                    <span>My Tasks</span>
+                </li>
+
+                <li class="category-menu">
+
+                    <div class="category-wrapper">
+
+                        <i class="fa-solid fa-folder"></i>
+
+                        <select onclick="category()" id="categorySelect">
+                            <option value="">Categories</option>
+                            <option value="work">💼 Work</option>
+                            <option value="personal">👤 Personal</option>
+                            <option value="study">📚 Study</option>
+                            <option value="shopping">🛒 Shopping</option>
+                        </select>
+
+                        <i class="fa-solid fa-chevron-down arrow"></i>
+
+                    </div>
+
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>Reports</span>
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-gear"></i>
+                    <span>Settings</span>
+                </li>
+
+            </ul>
+
+            <div class="sidebar-bottom">
+
+                <div class="nav-title">ACCOUNT</div>
+
+                <ul>
+                    <li onclick="logout()">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span>Logout</span>
+                    </li>
+                </ul>
+
+            </div>
+
+        </nav>
+
+    </aside>
+
+
+    <!-- Main Content -->
+    <main class="main">
+
+        <!-- Navbar -->
+        <header class="navbar">
+
+            <div class="page-heading">
+
+                <button class="mobile-menu" id="mobileMenu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+
+                <div>
+                    <span class="page-label">Overview</span>
+                    <h1 id="dashboard">Dashboard</h1>
+                </div>
+
+            </div>
+
+            <div class="user-area">
+
+                <div class="notification">
+                    <i class="fa-regular fa-bell"></i>
+                    <span></span>
+                </div>
+
+                <div class="user-info">
+
+                    <div class="user-avatar">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+
+                    <div>
+                        <strong id="helloUser">Welcome User 👋</strong>
+                        <small>Task Manager</small>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- Welcome -->
+        <section class="welcome-section">
+
+            <div>
+                <span class="welcome-label">GOOD DAY 👋</span>
+
+                <h2>
+                    Stay productive,
+                    <span>get things done.</span>
+                </h2>
+
+                <p>
+                    Manage your tasks and keep track of your daily progress.
+                </p>
+            </div>
+
+            <div class="welcome-decoration">
+                <i class="fa-solid fa-rocket"></i>
+            </div>
+
+        </section>
+
+
+        <!-- Statistics Cards -->
+        <section class="cards">
+
+            <!-- Total -->
+            <div class="card total-card">
+
+                <div class="card-content">
+                    <span class="card-label">TOTAL TASKS</span>
+
+                    <h2 id="total">0</h2>
+
+                    <p>
+                        <i class="fa-solid fa-chart-line"></i>
+                        All your tasks
+                    </p>
+                </div>
+
+                <div class="card-icon">
+                    <i class="fa-solid fa-layer-group"></i>
+                </div>
+
+            </div>
+
+
+            <!-- Completed -->
+            <div class="card completed-card">
+
+                <div class="card-content">
+                    <span class="card-label">COMPLETED</span>
+
+                    <h2 id="completed">0</h2>
+
+                    <p>
+                        <i class="fa-solid fa-circle-check"></i>
+                        Tasks completed
+                    </p>
+                </div>
+
+                <div class="card-icon">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+
+            </div>
+
+
+            <!-- Pending -->
+            <div class="card pending-card">
+
+                <div class="card-content">
+                    <span class="card-label">PENDING</span>
+
+                    <h2 id="pending">0</h2>
+
+                    <p>
+                        <i class="fa-solid fa-clock"></i>
+                        Tasks remaining
+                    </p>
+                </div>
+
+                <div class="card-icon">
+                    <i class="fa-solid fa-hourglass-half"></i>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Task Section -->
+        <section class="task-section">
+
+            <!-- Section Header -->
+            <div class="section-header">
+
+                <div>
+                    <span class="section-label">TASK MANAGEMENT</span>
+                    <h2>My Tasks</h2>
+                    <p>Manage and organize your tasks easily.</p>
+                </div>
+
+                <button
+                    type="button"
+                    id="buttonadd"
+                    onclick="createTodo()"
+                >
+                    <i class="fa-solid fa-plus"></i>
+                    Add Task
+                </button>
+
+            </div>
+
+
+            <!-- Toolbar -->
+            <div class="top-bar">
+
+                <div class="search-box">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <input
+                        id="inputsearch"
+                        type="text"
+                        placeholder="Search your tasks..."
+                    >
+
+                </div>
+
+                <div class="task-filter">
+
+                    <span>
+                        <i class="fa-solid fa-filter"></i>
+                        Tasks
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- Desktop Table -->
+            <div class="table-wrapper">
+
+                <table id="table">
+
+                    <thead>
+
+                        <tr>
+                            <th>ID</th>
+                            <th>Task Name</th>
+                            <th>Due Date</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                            <th>Completed</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="parent" class="tebady">
+                        <!-- JS tasks will appear here -->
+                    </tbody>
+
+                </table>
+
+                <!-- Empty State -->
+                <div class="empty-state" id="emptyState">
+
+                    <div class="empty-icon">
+                        <i class="fa-solid fa-clipboard-list"></i>
+                    </div>
+
+                    <h3>No tasks found</h3>
+
+                    <p>
+                        Your tasks will appear here when you create them.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Mobile Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+
+    <script src="dashboard.js" type="module"></script>
+
+</body>
+</html>

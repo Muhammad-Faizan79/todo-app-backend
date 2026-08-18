@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>singup</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body onload="checkAuth()">
+
+    <div class="container">
+
+    <div class="form-box">
+
+        <h2>Todo App Login</h2>
+
+        <div>
+
+            <div class="input-group">
+                <label>Email</label>
+                <input id="email" type="email" placeholder="Enter your email">
+            </div>
+
+            <div class="input-group">
+                <label>Password</label>
+                <input id="password" type="password" placeholder="Enter your password">
+            </div>
+
+            <button onclick="login()" class="btn" >Login</button>
+
+        </div>
+
+        <p class="text">
+            Don't have an account?
+            <a href="singup.html">Sign Up</a>
+        </p>
+
+    </div>
+
+</div>
+    
+</body>
+<script src="app.js" type="module"></script>
+</html>
+
+
+
+
+<!-- <div class="main">
+        <div class="heding">
+            <h1>login User</h1>
+        </div>
+        
+        <input type="email" id="email" placeholder="Enter Your Email">
+        <input type="password" id="password" placeholder="Enter Your password">
+        <button onclick="login()" >Submit</button>
+        <a href="singup.html">singup user </a>
+    </div> -->
