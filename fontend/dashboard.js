@@ -309,12 +309,12 @@ const redirectToLogin = () => {
 
     if (
         !window.location.pathname.includes(
-            "login.html"
+            "index.html"
         )
     ) {
 
         window.location.replace(
-            "./login.html"
+            "./index.html"
         );
     }
 };
