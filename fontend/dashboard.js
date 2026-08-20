@@ -2780,7 +2780,7 @@ const logout = () => {
 
 
     window.location.replace(
-        "./login.html"
+        "./index.html"
     );
 };
 
