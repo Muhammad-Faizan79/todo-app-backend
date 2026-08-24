@@ -6,6 +6,8 @@ import todoModel from "./model/todo.js"
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv"
+import {setServers} from "node:dns/promises"
+setServers(["8.8.8.8","1.1.1.1"])
 dotenv.config()
 
 
